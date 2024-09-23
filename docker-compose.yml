@@ -1,0 +1,6 @@
+﻿services:
+  bookadesk.userservice:
+    image: bookadesk.userservice
+    build:
+      context: .
+      dockerfile: BookaDesk.UserService/Dockerfile
