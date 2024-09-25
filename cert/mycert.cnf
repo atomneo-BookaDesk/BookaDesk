@@ -6,15 +6,15 @@ prompt = no
 [req_distinguished_name]
 C = PL
 ST = Wielkopolskie
-L = Poznań
+L = Poznan
 O = atomneo
 OU = BookaDesk
-CN = bookadesk.eu
+CN = bookadesk.mattsoft.it
 
 [req_ext]
 subjectAltName = @alt_names
 
 [alt_names]
-DNS.1 = bookadesk.eu
-DNS.2 = www.bookadesk.eu
+DNS.1 = bookadesk.mattsoft.it
+DNS.2 = www.bookadesk.mattsoft.it
 DNS.3 = localhost
