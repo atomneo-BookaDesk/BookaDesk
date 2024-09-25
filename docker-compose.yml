@@ -1,6 +1,18 @@
 ﻿services:
   bookadesk.userservice:
-    image: bookadesk.userservice
+    image: bookadesk.userservice:latest
     build:
-      context: .
-      dockerfile: BookaDesk.UserService/Dockerfile
+      context: ./BookaDesk.UserService
+      dockerfile: Dockerfile
+    ports:
+      - "5001:8081" # https
+      - "5021:8080" # http
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      #- ConnectionStrings__DefaultConnection=YourConnectionString
+    networks:
+      - bookadesk-network
+
+networks:
+  bookadesk-network:
+    driver: bridge
