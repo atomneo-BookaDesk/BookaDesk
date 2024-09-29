@@ -1,6 +1,20 @@
 ﻿services:
+  mongodb:
+    image: mongo:latest
+    container_name: bookadesk.mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo_root
+      MONGO_INITDB_ROOT_PASSWORD: root_password
+    volumes:
+      - mongodb_data:/data/db
+
   bookadesk.userservice:
     image: bookadesk.userservice:latest
+    container_name: bookadesk.userservice
+    depends_on:
+      - mongodb
     build:
       context: ./BookaDesk.UserService
       dockerfile: Dockerfile
@@ -9,9 +23,15 @@
       - "5021:8080" # http
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      #- ConnectionStrings__DefaultConnection=YourConnectionString
+      - ConnectionStrings__DefaultConnection=mongodb://mongo_root:root_password@mongodb:27017/users
     networks:
       - bookadesk-network
+    profiles:
+      - userservice
+      - full
+
+volumes:
+  mongodb_data:
 
 networks:
   bookadesk-network:
